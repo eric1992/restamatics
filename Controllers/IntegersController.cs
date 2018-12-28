@@ -87,7 +87,7 @@ namespace restamatics.Controllers
                 twoBefore = oneBefore;
                 oneBefore = current;
                 current = twoBefore + oneBefore;
-                index += 1
+                index += 1;
                 
             }
         }
