@@ -46,7 +46,7 @@ namespace restamatics.Controllers
         public IActionResult Odds([FromQuery]MinMax param){
             if(param.MinBigInt > param.MaxBigInt)
                 return BadRequest(MinGreaterThanMaxError(param));
-            return Ok(EnumerateEvens(param));
+            return Ok(EnumerateOdds(param));
         }
 
         private static IEnumerable<BigInteger> EnumerateOdds(MinMax param){
