@@ -4,8 +4,9 @@ import { Integers } from './components/Integers';
 import { Evens } from './components/Evens';
 import { Odds } from './components/Odds';
 import { Fibonacci } from './components/Fibonacci';
+import { Container, Row, Col } from 'reactstrap';
 import 'react-treeview/react-treeview.css';
-import TreeView from 'react-treeview';
+import SetHierarchy from './components/SetHierarchy';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -45,37 +46,28 @@ export default class App extends Component {
     this.setState({ selectedSet : "FIBONACCI" })
   }
 
+  handleClick = name => () => {
+    this.setState({ selectedSet: name});
+  }
+
   render () {
     return (
       <div>
         <link rel="stylesheet" type="text/css" href="path/to/react-treeview.css"/>
-          <TreeView
-            key="Reals|0"
-            nodeLabel="Reals"
-            collapsed={this.state.realsCollapsed}
-            onClick={this.handleRealsClick}>
-            <TreeView
-              key="Integers|0"
-              nodeLabel="Integers"
-              collapsed={this.state.integersCollapsed}
-              onClick={this.handleIntegersClick}>
-              <ul>
-                <li onClick={this.handleEvensClick}>
-                  Evens
-                </li>
-                <li onClick={this.handleOddsClick}>
-                  Odds
-                </li>
-                <li onClick={this.handleFibonacciClick}>
-                  Fibonacci
-                </li>
-              </ul>
-            </TreeView>
-          </TreeView>
-          { this.state.selectedSet === "INTEGERS" ? <Integers /> : null }
-          { this.state.selectedSet === "EVENS" ? <Evens /> : null }
-          { this.state.selectedSet === "ODDS" ? <Odds /> : null }
-          { this.state.selectedSet === "FIBONACCI" ? <Fibonacci /> : null }
+          <Container>
+            <Row>
+              <Col>
+                <SetHierarchy nodeRoute="/api/Reals"
+                  handleClick={this.handleClick} />
+              </Col>
+              <Col>
+                { this.state.selectedSet === "Integers" ? <Integers /> : null }
+                { this.state.selectedSet === "Evens" ? <Evens /> : null }
+                { this.state.selectedSet === "Odds" ? <Odds /> : null }
+                { this.state.selectedSet === "Fibonacci" ? <Fibonacci /> : null }
+              </Col>
+            </Row>
+          </Container>
       </div>
     );
   }

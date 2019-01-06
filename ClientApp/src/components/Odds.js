@@ -17,7 +17,7 @@ export class Odds extends Component {
     getOdds = (min = this.state.min, max = this.state.max) => {
         axios.get(`/api/Reals/Integers/Odds?min=${min}&max=${max}`)
             .then(resp => {
-                this.setState({ odds : resp.data})
+                this.setState({ odds : resp.data.values })
             })
             .catch(console.log);
     }

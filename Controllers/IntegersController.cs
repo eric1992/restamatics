@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using restamatics.Models;
+using restamatics.EnumerableFactory;
 
 namespace restamatics.Controllers
 {
@@ -13,83 +14,64 @@ namespace restamatics.Controllers
     {
         private string MinGreaterThanMaxError(MinMax param) => $"Min must be greater than max, provided min:{param.Min}, max:{param.Max}";
 
+        [HttpGet("")]
+        public IActionResult Reals()
+        {
+            return Ok (new Reals());
+        }
+
         [HttpGet("[action]")]
-        public IActionResult Integers([FromQuery]MinMax param){
+        public IActionResult Integers([FromQuery]MinMax param)
+        {
             if(param.MinBigInt > param.MaxBigInt)
                 return BadRequest(MinGreaterThanMaxError(param));
-            return Ok(EnumerateIntegers(param));
-        }
-
-        private static IEnumerable<BigInteger> EnumerateIntegers(MinMax param){
-            var min = param.MinBigInt;
-            var max = param.MaxBigInt;
-            for(var i = min; i <= max; i++){
-                yield return i;
-            }
+            return Ok(new Integers 
+            {
+                Values = IntegerEnumerableFactory.EnumerateIntegers(param)
+            });
         }
 
         [HttpGet("Integers/[action]")]
-        public IActionResult Evens([FromQuery]MinMax param){
+        public IActionResult Evens([FromQuery]MinMax param)
+        {
             if(param.MinBigInt > param.MaxBigInt)
                 return BadRequest(MinGreaterThanMaxError(param));
-            return Ok(EnumerateEvens(param));
-        }
-
-        private static IEnumerable<BigInteger> EnumerateEvens(MinMax param){
-            var min = param.MinBigInt;
-            var max = param.MaxBigInt;
-            for(var i = min + (min % 2); i <= max; i += 2)
-                yield return i;
+            return Ok(new Evens
+            {
+                Values = IntegerEnumerableFactory.EnumerateEvens(param)
+            });
         }
 
         [HttpGet("Integers/[action]")]
-        public IActionResult Odds([FromQuery]MinMax param){
+        public IActionResult Odds([FromQuery]MinMax param)
+        {
             if(param.MinBigInt > param.MaxBigInt)
                 return BadRequest(MinGreaterThanMaxError(param));
-            return Ok(EnumerateOdds(param));
-        }
-
-        private static IEnumerable<BigInteger> EnumerateOdds(MinMax param){
-            var min = param.MinBigInt;
-            var max = param.MaxBigInt;
-            for(var i = min + (min % 2 == 0 ? 1 : 0); i <= max; i += 2)
-                yield return i;
+            return Ok(new Odds 
+            {
+                Values = IntegerEnumerableFactory.EnumerateOdds(param)
+            });
         }
 
         [HttpGet("Integers/[action]")]
-        public IActionResult Fibonacci([FromQuery]FibonacciParams param){
-            if(param.Count == null)
-                return BadRequest("Count cannot be null.");
+        public IActionResult Fibonacci([FromQuery]FibonacciParams param)
+        {
+            param.Count = param.Count ?? 10;
             if(param.Count > 1476)
                 return BadRequest($"Cannot serve a count more than 1477, {param.Count} was provided.");
-            var values = EnumerateFibonacci(param).ToList();
-            return Ok(values);
+            return Ok(new Fibonacci 
+            {
+                Values = IntegerEnumerableFactory.EnumerateFibonacci(param),
+            });
         }
 
-        private static IEnumerable<BigInteger> EnumerateFibonacci(FibonacciParams param){
-            var index = 1;
-            if(param.Count < 1)
-                yield break;
-            yield return param.SeedOneBigInt;
-            index += 1;
-            if(param.Count == 1)
-                yield break;
-            yield return param.SeedTwoBigInt;
-            index += 1;
-            if(param.Count == 2)
-                yield break;
-            var twoBefore = param.SeedOneBigInt;
-            var oneBefore = param.SeedTwoBigInt;
-            var current = twoBefore + oneBefore;
-            while(index <= param.Count){
-                yield return current;
-                var oldCurrent = current;
-                twoBefore = oneBefore;
-                oneBefore = current;
-                current = twoBefore + oneBefore;
-                index += 1;
-                
-            }
+        [HttpGet("Integers/[action]")]
+        public IActionResult Factorial([FromQuery] FactorialParams param)
+        {
+            return Ok(new Factorial
+            {
+                Values = IntegerEnumerableFactory.EnumerateFactorial(param)
+            });
         }
     }
 }

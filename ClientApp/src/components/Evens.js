@@ -17,7 +17,7 @@ export class Evens extends Component {
     getEvens = (min = this.state.min, max = this.state.max) => {
         axios.get(`/api/Reals/Integers/Evens?min=${min}&max=${max}`)
             .then(resp => {
-                this.setState({ evens : resp.data})
+                this.setState({ evens : resp.data.values})
             })
             .catch(console.log);
     }

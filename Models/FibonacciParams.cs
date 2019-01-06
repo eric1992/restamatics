@@ -5,7 +5,7 @@ namespace restamatics.Models
 {
     public class FibonacciParams
     {
-        public int? Count { get; set; }
+        public uint? Count { get; set; }
         public string SeedOne { get; set; }
         public BigInteger SeedOneBigInt {
             get {

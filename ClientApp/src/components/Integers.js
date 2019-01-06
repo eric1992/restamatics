@@ -17,7 +17,7 @@ export class Integers extends Component {
     getIntegers = (min = this.state.min, max = this.state.max) => {
         axios.get(`/api/Reals/Integers?min=${min}&max=${max}`)
             .then(resp => {
-                this.setState({ integers: resp.data})
+                this.setState({ integers: resp.data.values})
             })
             .catch(console.log);
     }

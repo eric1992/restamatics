@@ -18,7 +18,7 @@ export class Fibonacci extends Component {
     getFibonacci = (count = this.state.count, seedOne = this.state.seedOne, seedTwo = this.state.seedTwo) => {
         axios.get(`/api/Reals/Integers/Fibonacci?count=${count}&seedOne=${seedOne}&seedTwo=${seedTwo}`)
             .then(resp => {
-                this.setState({ fibonacci : resp.data})
+                this.setState({ fibonacci : resp.data.values})
             })
             .catch(console.log);
     }
