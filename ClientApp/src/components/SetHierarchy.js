@@ -12,11 +12,12 @@ export default class SetHierarchy extends Component {
         };
         axios.get(props.nodeRoute)
             .then(resp => {
+                const children = resp.data.links
+                    .filter(link => link.rel === "child")
+                    .map(link => link.href);
                 this.setState({
                     name: resp.data.name,
-                    children: resp.data.links
-                        .filter(link => link.rel === "child")
-                        .map(link => link.hRef)
+                    children: children,
                 });
             })
             .catch(console.log);
