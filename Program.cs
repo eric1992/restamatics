@@ -18,9 +18,12 @@ namespace restamatics
         }
 
         public static void CreateWebHostBuilder(string[] args) {
-            var webHost = WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+            var webHost = new WebHostBuilder()
+              .UseKestrel()
+              .UseContentRoot(Directory.GetCurrentDirectory())
+              .UseIISIntegration()
+              .UseStartup<Startup>()
+              .Build();
             
             webHost.Run();
         }
