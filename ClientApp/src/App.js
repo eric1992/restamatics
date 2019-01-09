@@ -4,6 +4,7 @@ import { Integers } from './components/Integers';
 import { Evens } from './components/Evens';
 import { Odds } from './components/Odds';
 import { Fibonacci } from './components/Fibonacci';
+import { Factorial } from './components/Factorial';
 import { Container, Row, Col } from 'reactstrap';
 import 'react-treeview/react-treeview.css';
 import SetHierarchy from './components/SetHierarchy';
@@ -65,6 +66,7 @@ export default class App extends Component {
                 { this.state.selectedSet === "Evens" ? <Evens /> : null }
                 { this.state.selectedSet === "Odds" ? <Odds /> : null }
                 { this.state.selectedSet === "Fibonacci" ? <Fibonacci /> : null }
+                { this.state.selectedSet === "Factorial" ? <Factorial /> : null }
               </Col>
             </Row>
           </Container>

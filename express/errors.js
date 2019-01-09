@@ -5,3 +5,7 @@ exports.minLessThanMax = {
 exports.negativeCount = {
     message: 'Count must be a positive number',
 }
+
+exports.requestedMoreThanTenThousand = {
+    message: 'Request more than 10000 values',
+}

@@ -5,7 +5,7 @@ const paramsFromQueryGenerator = require('./paramFromQueryGenerator');
 const path = require('path');
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const get = {
     reals: (req, res) => {
         res.send(JSON.stringify({...baseBodies.reals}));
@@ -15,7 +15,11 @@ const get = {
         if(params.min >= params.max){
             res.status(400);
             res.send(JSON.stringify(errors.minGreaterThanOrEqualToMax));
-        } else {
+        } else if (params.max - params.min > 10000){
+            res.status(400);
+            res.send(JSON.stringify(errors.requestedMoreThanTenThousand))
+        } 
+        else {
             const responseObject = {
                 ...baseBodies.integers,
                 values: enumerators.integers(params) 
@@ -28,6 +32,9 @@ const get = {
         if(params.min >= params.max){
             res.status(400);
             res.send(JSON.stringify(errors.minLessThanMax));
+        } else if (params.max - params.min > 10000){
+            res.status(400);
+            res.send(JSON.stringify(errors.requestedMoreThanTenThousand))
         } else {
             const responseObject = {
                 ...baseBodies.evens,
@@ -41,6 +48,9 @@ const get = {
         if(params.min >= params.max){
             res.status(400);
             res.send(JSON.stringify(errors.minLessThanMax));
+        } else if (params.max - params.min > 10000){
+            res.status(400);
+            res.send(JSON.stringify(errors.requestedMoreThanTenThousand))
         } else {
             const responseObject = {
                 ...baseBodies.odds,
@@ -54,6 +64,9 @@ const get = {
         if(params.count <= 0){
             res.status(400);
             res.send(JSON.stringify(errors.negativeCount))
+        } else if (params.count > 10000){
+            res.status(400);
+            res.send(JSON.stringify(errors.requestedMoreThanTenThousand))
         } else {
             const responseObject = {
                 ...baseBodies.fibonacci,
@@ -67,6 +80,9 @@ const get = {
         if(params.count <= 0){
             res.status(400);
             res.send(JSON.stringify(errors.negativeCount))
+        } else if (params.count > 10000){
+            res.status(400);
+            res.send(JSON.stringify(errors.requestedMoreThanTenThousand))
         } else if (params.startIndex <= 0) {
             res.status(400);
             res.send(JSON.stringify(errors.negativeStartIndex));

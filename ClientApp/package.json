@@ -33,6 +33,7 @@
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "rm -R ../express/client/build && mv build/ ../express/client/build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/"
