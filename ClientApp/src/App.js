@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Integers } from './components/Integers';
 import { Evens } from './components/Evens';
 import { Odds } from './components/Odds';
+import { Primes } from './components/Primes';
 import { Fibonacci } from './components/Fibonacci';
 import { Factorial } from './components/Factorial';
 import { Container, Row, Col } from 'reactstrap';
@@ -44,6 +45,7 @@ export default class App extends Component {
                 { this.state.selectedSet === "Integers" ? <Integers /> : null }
                 { this.state.selectedSet === "Evens" ? <Evens /> : null }
                 { this.state.selectedSet === "Odds" ? <Odds /> : null }
+                { this.state.selectedSet === "Primes" ? <Primes /> : null }                
                 { this.state.selectedSet === "Fibonacci" ? <Fibonacci /> : null }
                 { this.state.selectedSet === "Factorial" ? <Factorial /> : null }
               </Col>

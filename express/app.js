@@ -60,10 +60,13 @@ const get = {
         }
     },
     primes: (req, res) => {
-        const parsedCount = parseInt(req.query.count, 10);
-        if(!req.query.count || (parsedCount != req.query.count || parsedCount < 0)){
+        const parsedCount = parseInt(req.query.count, 10) || 10;
+        if(req.query.count && (parsedCount != req.query.count || parsedCount < 0)){
             res.status(400);
             res.send(JSON.stringify(errors.negativeCount));
+        } else if (parsedCount > 1000000){
+            res.status(400);
+            res.send(JSON.stringify(errors.requestedMoreThanOneMillion));
         } else {
             const responseObject = {
                 ...baseBodies.primes,
@@ -122,7 +125,7 @@ app.get('/api/Reals/Integers/Evens', get.evens);
 
 app.get('/api/Reals/Integers/Odds', get.odds);
 
-app.get('/api/Reals/Primes', get.primes);
+app.get('/api/Reals/Integers/Primes', get.primes);
 
 app.get('/api/Functions', get.functions);
 

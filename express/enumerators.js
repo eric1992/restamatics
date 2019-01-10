@@ -36,7 +36,7 @@ exports.primes = (params) => {
     const values = [];
     for(let valueToTest = 2; values.length !== params.count; valueToTest++){
         let foundDivisor = false;
-        for(let i = 0; !foundDivisor && values[i] < Math.sqrt(values[i]); i++){
+        for(let i = 0; i < values.length && !foundDivisor && values[i] <= Math.sqrt(valueToTest); i++){
             if(valueToTest % values[i] === 0)
                 foundDivisor = true;
         }
