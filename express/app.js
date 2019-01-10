@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const get = {
     reals: (req, res) => {
-        res.send(JSON.stringify({...baseBodies.reals}));
+        res.send(JSON.stringify(baseBodies.reals));
     },
     integers: (req, res) => {
         const params = paramsFromQueryGenerator.minMax(req.query);
@@ -59,6 +59,22 @@ const get = {
             res.send(JSON.stringify(responseObject));
         }
     },
+    primes: (req, res) => {
+        const parsedCount = parseInt(req.query.count, 10);
+        if(!req.query.count || (parsedCount != req.query.count || parsedCount < 0)){
+            res.status(400);
+            res.send(JSON.stringify(errors.negativeCount));
+        } else {
+            const responseObject = {
+                ...baseBodies.primes,
+                values: enumerators.primes({count: parsedCount}),
+            }
+            res.send(JSON.stringify(responseObject));
+        }
+    },
+    functions: (req, res) => {
+        res.send(JSON.stringify(baseBodies.functions));
+    },
     fibonacci: (req, res) => {
         const params = paramsFromQueryGenerator.fibonacci(req.query);
         if(params.count <= 0){
@@ -106,9 +122,13 @@ app.get('/api/Reals/Integers/Evens', get.evens);
 
 app.get('/api/Reals/Integers/Odds', get.odds);
 
-app.get('/api/Reals/Integers/Fibonacci', get.fibonacci);
+app.get('/api/Reals/Primes', get.primes);
 
-app.get('/api/Reals/Integers/Factorial', get.factorial);
+app.get('/api/Functions', get.functions);
+
+app.get('/api/Functions/Fibonacci', get.fibonacci);
+
+app.get('/api/Functions/Factorial', get.factorial);
 
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{

@@ -17,34 +17,11 @@ export default class App extends Component {
       realsCollapsed: true,
       integersCollapsed: true,
       selectedSet: null,
+      baseRoutes: [
+        "/api/Reals",
+        "/api/Functions",
+      ]
     }
-  }
-
-
-  handleRealsClick = () => {
-    this.setState(currentState => ({
-      realsCollapsed: !currentState.realsCollapsed,
-      selectedSet: "REALS",
-    })); 
-  }
-
-  handleIntegersClick = () => {
-    this.setState(currentState => ({
-      integersCollapsed: !currentState.integersCollapsed,
-      selectedSet: "INTEGERS",
-    }))
-  }
-
-  handleEvensClick = () => {
-    this.setState({ selectedSet : "EVENS" });
-  }
-
-  handleOddsClick = () => {
-    this.setState({ selectedSet : "ODDS" });
-  }
-
-  handleFibonacciClick = () => {
-    this.setState({ selectedSet : "FIBONACCI" })
   }
 
   handleClick = name => () => {
@@ -58,9 +35,11 @@ export default class App extends Component {
           <Container>
             <Row>
               <Col>
-                <SetHierarchy nodeRoute="/api/Reals"
-                  handleClick={this.handleClick} />
-              </Col>
+                {this.state.baseRoutes.map(route => (
+                  <SetHierarchy nodeRoute={route}
+                    handleClick={this.handleClick} />
+                ))}
+             </Col>
               <Col>
                 { this.state.selectedSet === "Integers" ? <Integers /> : null }
                 { this.state.selectedSet === "Evens" ? <Evens /> : null }

@@ -15,7 +15,7 @@ export class Factorial extends Component {
     }
 
     getFactorial  = (count = this.state.count, startIndex = this.state.startIndex) => {
-        axios.get(`/api/Reals/Integers/Factorial?count=${count}&startIndex=${startIndex}`)
+        axios.get(`/api/Functions/Factorial?count=${count}&startIndex=${startIndex}`)
             .then(resp => {
                 this.setState({ factorial : resp.data.values})
             })

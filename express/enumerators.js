@@ -32,6 +32,21 @@ exports.odds = (params) => {
     return values;
 }
 
+exports.primes = (params) => {
+    const values = [];
+    for(let valueToTest = 2; values.length !== params.count; valueToTest++){
+        let foundDivisor = false;
+        for(let i = 0; !foundDivisor && values[i] < Math.sqrt(values[i]); i++){
+            if(valueToTest % values[i] === 0)
+                foundDivisor = true;
+        }
+        if(!foundDivisor){
+            values.push(valueToTest);
+        }
+    }
+    return values;
+}
+
 exports.fibonacci = (params) => {
     const values = [];
     values.push(params.seedOne);

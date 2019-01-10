@@ -14,8 +14,7 @@ exports.integers = {
         link('/api/Reals/Integers', 'self'),
         link('/api/Reals/Integers/Evens', 'child'),
         link('/api/Reals/Integers/Odds', 'child'),
-        link('/api/Reals/Integers/Fibonacci', 'child'),
-        link('/api/Reals/Integers/Factorial', 'child'),
+        link('/api/Reals/Integers/Primes', 'child'),
     ],
 };
 
@@ -33,16 +32,32 @@ exports.odds = {
     ]
 };
 
+exports.primes = {
+    name: 'Primes',
+    links: [
+        link('/api/Reals/Integers/Primes', 'self')
+    ]
+}
+
+exports.functions = {
+    name: 'Functions',
+    links: [
+        link('/api/Functions', 'self'),
+        link('/api/Functions/Fibonacci', 'child'),
+        link('/api/Functions/Factorial', 'child'),
+    ]
+}
+
 exports.fibonacci = {
     name: 'Fibonacci',
     links: [
-        link('/api/Reals/Integers/Fibonacci', 'self'),
+        link('/api/Functions/Fibonacci', 'self'),
     ],
 }
 
 exports.factorial = {
     name: 'Factorial',
     links: [
-        link('/api/Reals/Integers/Factorial', 'self'),
+        link('/api/Functions/Factorial', 'self'),
     ],
 }
