@@ -35,6 +35,9 @@ export default class App extends Component {
         <link rel="stylesheet" type="text/css" href="path/to/react-treeview.css"/>
           <Container>
             <Row>
+              <h1>Restamatics</h1>
+            </Row>
+            <Row>
               <Col>
                 {this.state.baseRoutes.map(route => (
                   <SetHierarchy nodeRoute={route}
